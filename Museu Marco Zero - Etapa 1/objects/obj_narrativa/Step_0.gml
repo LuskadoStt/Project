@@ -1,3 +1,4 @@
+if (global.modo_teste) qa_cutscene_atualizar(id);
 if(keyboard_check_pressed(vk_f11)) window_set_fullscreen(!window_get_fullscreen());
 if(retomar_praca) {retomar_praca=false;room_goto(rm_obra_1);exit;}
 if(keyboard_check_pressed(vk_escape)) {
@@ -30,29 +31,18 @@ letras=global.texto_rapido ? string_length(fala) : min(string_length(fala),letra
 if(avancar && fala!="" && letras<string_length(fala)) {
     letras=string_length(fala);avancar=false;
 }
+if (global.modo_teste) avancar = global.teste.permitir_avanco;
 if (!instance_exists(jogador)) exit;
 var estado_anterior=estado;
 switch(estado) {
-case "boas_vindas":
-    if(avancar) {estado="passeio";fala="";tempo=0;}
-    break;
-case "passeio":
-    guia_x=min(1080,guia_x+180*dt);
-    jogador.x=guia_x-70;jogador.y=guia_y;
-    jogador.sprite_index=spr_walk_e;jogador.image_speed=1;
-    if(guia_x>=1080) {estado="tecnologia";fala="Nossa nova tecnologia permite entrar nas pinturas e visitar esses lugares.";}
-    break;
-case "tecnologia":
-    if(avancar) {estado="volta_quadro";fala="";}
-    break;
-case "volta_quadro":
-    guia_x=max(390,guia_x-180*dt);
-    jogador.x=guia_x-70;jogador.y=540;
-    jogador.sprite_index=spr_walk_w;jogador.image_speed=1;
-    if(guia_x<=390) {estado="convite";fala="Este quadro retrata a Praça do Marco Zero, no Recife. Toque no quadro para iniciar a viagem.";}
-    break;
-case "convite":
-    if(avancar) {estado="livre";fala="";global.visita_concluida=true;}
+case "cutscene":
+    cutscene_atualizar(executor_cutscene, id, dt, avancar);
+    if (!executor_cutscene.ativo) {
+        estado = executor_cutscene.estado_final;
+        fala = "";
+        if (erro_cutscene == "") global.visita_concluida = true;
+        cutscene_pose(jogador, 4, false);
+    }
     break;
 case "livre":
     if(keyboard_check_pressed(ord("E")) && point_distance(jogador.x,jogador.y,307,480)<110) {
@@ -91,7 +81,7 @@ case "praca_livre":
     if(keyboard_check_pressed(ord("R"))) {salvar_visita(id);room_goto(rm_galeria);}
     break;
 }
-if(estado!="livre" && estado!="praca_livre" && estado!="passeio" && estado!="volta_quadro") {
+if(estado!="livre" && estado!="praca_livre" && estado!="cutscene") {
     jogador.image_speed=0;jogador.image_index=0;
     if(estado!="portal" && estado!="toque") jogador.sprite_index=spr_player_n;
 }

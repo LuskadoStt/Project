@@ -6,6 +6,17 @@
       "$GMEvent": "v1",
       "%Name": "",
       "collisionObjectId": null,
+      "eventNum": 0,
+      "eventType": 0,
+      "isDnD": false,
+      "name": "",
+      "resourceType": "GMEvent",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMEvent": "v1",
+      "%Name": "",
+      "collisionObjectId": null,
       "eventNum": 2,
       "eventType": 3,
       "isDnD": false,
@@ -50,7 +61,13 @@
   "resourceType": "GMObject",
   "resourceVersion": "2.0",
   "solid": false,
-  "spriteId": null,
-  "spriteMaskId": null,
+  "spriteId": {
+    "name": "spr_player",
+    "path": "sprites/spr_player/spr_player.yy"
+  },
+  "spriteMaskId": {
+    "name": "spr_player_hitbox",
+    "path": "sprites/spr_player_hitbox/spr_player_hitbox.yy"
+  },
   "visible": true
 }

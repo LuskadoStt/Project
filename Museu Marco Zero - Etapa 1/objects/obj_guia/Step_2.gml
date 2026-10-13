@@ -1,3 +1,3 @@
-var n=instance_find(obj_narrativa,0);
-if(n==noone) exit;
-x=n.guia_x;y=n.guia_y;depth=-y;
+// O executor move a instância real; este evento apenas mantém a ordenação.
+if (global.pausado) exit;
+depth = -y;

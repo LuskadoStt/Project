@@ -254,6 +254,24 @@
         "name": "configuracao_cenario",
         "path": "scripts/configuracao_cenario/configuracao_cenario.yy"
       }
+    },
+    {
+      "id": {
+        "name": "sistema_cutscene",
+        "path": "scripts/sistema_cutscene/sistema_cutscene.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "roteiros_cutscene",
+        "path": "scripts/roteiros_cutscene/roteiros_cutscene.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "qa_cutscene",
+        "path": "scripts/qa_cutscene/qa_cutscene.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

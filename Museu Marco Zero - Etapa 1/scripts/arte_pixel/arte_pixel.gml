@@ -100,6 +100,7 @@ function museu_pixel() {
     draw_set_color(c_white);
 }
 function salvar_visita(_n) {
+    if (global.modo_teste) return;
     ini_open("museu_marco_zero.ini");
     ini_write_real("opcoes","volume",global.volume);
     ini_write_real("opcoes","texto",global.texto_rapido);
@@ -108,6 +109,7 @@ function salvar_visita(_n) {
         ini_write_string("visita","local",room==rm_galeria ? "museu" : "praca");
         ini_write_real("visita","x",_n.jogador.x);ini_write_real("visita","y",_n.jogador.y);
         ini_write_real("visita","guia",global.visita_concluida);
+        ini_write_real("visita","versao_passeio",_n.configuracao.versao_passeio);
     }
     ini_close();
 }

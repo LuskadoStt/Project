@@ -42,6 +42,12 @@ cases = set(re.findall(r'case "([^"]+)"', controller))
 initial = (ROOT / 'objects/obj_narrativa/Create_0.gml').read_text()
 assigned = set(re.findall(r'estado\s*=\s*"([^"]+)"', controller + initial))
 assert assigned <= cases, f'Estado sem tratamento: {assigned - cases}'
+for room_name in ['rm_galeria', 'rm_obra_1']:
+    for layer in load(ROOT / f'rooms/{room_name}/{room_name}.yy')['layers']:
+        for actor in layer.get('instances', []):
+            if actor['objectId']['name'] == 'obj_npc':
+                assert actor['ignore'] is True, 'Visitante deve permanecer desativado'
+assert 'case "cutscene"' in controller
 config = (ROOT / 'scripts/configuracao_cenario/configuracao_cenario.gml').read_text()
 assert 'imagem_destino: spr_cenario_obra_1' in config
 for name in ['objects/obj_narrativa/Draw_0.gml', 'objects/obj_obra_1/Draw_0.gml']:
@@ -71,4 +77,4 @@ assert 'surface_free(fundo_surface)' in (ROOT / 'objects/obj_narrativa/CleanUp_0
 for name in ['obj_player', 'obj_npc']:
     assert 'if(global.pausado) exit;' in (ROOT / f'objects/{name}/Step_0.gml').read_text()
 print(f'PASS: {len(resources)} recursos registrados, eventos, frames, salas, referências GML e estados.')
-print('Compilação, shaders, FPS e gameplay: NÃO EXECUTADOS; requerem GameMaker.')
+print('Verificação estrutural concluída; consultar GitHub Actions para compilação e teste do executável.')

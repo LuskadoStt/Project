@@ -31,3 +31,9 @@ if(global.pausado) {
     draw_text_ext(124,302,"O progresso é salvo ao explorar. Ao abrir o jogo novamente, você retoma o último ponto salvo.",22,542);
 }
 draw_set_color(c_white);
+
+// Capturas reais do jogo para o workflow, apenas no modo de teste explícito.
+if (global.modo_teste && global.teste.foto != "" && surface_exists(application_surface)) {
+    surface_save(application_surface, global.teste.foto);
+    global.teste.foto = "";
+}

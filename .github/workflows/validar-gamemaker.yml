@@ -5,6 +5,7 @@ on:
     paths:
       - 'Museu Marco Zero - Etapa 1/**'
       - '.github/workflows/validar-gamemaker.yml'
+      - 'qa/testar-executavel.ps1'
   workflow_dispatch:
 permissions:
   contents: read
@@ -55,3 +56,15 @@ jobs:
           name: Museu-Marco-Zero-Windows-${{ github.sha }}
           path: Museu-Marco-Zero-Windows.zip
           if-no-files-found: error
+
+      - name: Executar passeio, pausa, viagem e retorno no jogo
+        run: ./qa/testar-executavel.ps1
+      - name: Disponibilizar relatório e capturas de execução
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: QA-Execucao-${{ github.sha }}
+          path: |
+            qa-artifacts/*.json
+            qa-artifacts/*.png
+          if-no-files-found: warn

@@ -14,7 +14,15 @@ function configuracao_cenario() {
         limites_praca: {esquerda: 32, topo: 380, direita: 768, base: 486},
         chegada_praca: {x: 400, y: 430},
         historiador_praca: {x: 520, y: 430},
-        raio_historiador: 100
+        raio_historiador: 100,
+        versao_passeio: 2,
+        velocidade_passeio: 140,
+        distancia_guia: 70,
+        pontos_passeio: [
+            {x: 307, y: 520, titulo: "Praça do Marco Zero", texto: "Esta pintura nos leva à Praça do Marco Zero, no Recife. Observe a paisagem e a relação da cidade com a água."},
+            {x: 1080, y: 520, titulo: "Arquitetura e memória", texto: "Nesta obra, a arquitetura guarda memórias do lugar. Cada detalhe pode contar uma parte da sua história."},
+            {x: 1830, y: 520, titulo: "Luz e reflexos", texto: "A luz e os reflexos mudam a maneira como vemos uma paisagem. Uma pintura também é um convite a observar."}
+        ]
     };
 }
 
