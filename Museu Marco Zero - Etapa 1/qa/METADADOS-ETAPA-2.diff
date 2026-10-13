@@ -1,0 +1,205 @@
+--- antes/game P.I.yyp
++++ depois/game P.I.yyp
+@@ -254,6 +254,24 @@
+         "name": "configuracao_cenario",
+         "path": "scripts/configuracao_cenario/configuracao_cenario.yy"
+       }
++    },
++    {
++      "id": {
++        "name": "sistema_cutscene",
++        "path": "scripts/sistema_cutscene/sistema_cutscene.yy"
++      }
++    },
++    {
++      "id": {
++        "name": "roteiros_cutscene",
++        "path": "scripts/roteiros_cutscene/roteiros_cutscene.yy"
++      }
++    },
++    {
++      "id": {
++        "name": "qa_cutscene",
++        "path": "scripts/qa_cutscene/qa_cutscene.yy"
++      }
+     }
+   ],
+   "resourceType": "GMProject",
+--- antes/objects/obj_guia/obj_guia.yy
++++ depois/objects/obj_guia/obj_guia.yy
+@@ -2,6 +2,17 @@
+   "$GMObject": "",
+   "%Name": "obj_guia",
+   "eventList": [
++    {
++      "$GMEvent": "v1",
++      "%Name": "",
++      "collisionObjectId": null,
++      "eventNum": 0,
++      "eventType": 0,
++      "isDnD": false,
++      "name": "",
++      "resourceType": "GMEvent",
++      "resourceVersion": "2.0"
++    },
+     {
+       "$GMEvent": "v1",
+       "%Name": "",
+@@ -50,7 +61,13 @@
+   "resourceType": "GMObject",
+   "resourceVersion": "2.0",
+   "solid": false,
+-  "spriteId": null,
+-  "spriteMaskId": null,
++  "spriteId": {
++    "name": "spr_player",
++    "path": "sprites/spr_player/spr_player.yy"
++  },
++  "spriteMaskId": {
++    "name": "spr_player_hitbox",
++    "path": "sprites/spr_player_hitbox/spr_player_hitbox.yy"
++  },
+   "visible": true
+ }
+--- antes/rooms/rm_galeria/rm_galeria.yy
++++ depois/rooms/rm_galeria/rm_galeria.yy
+@@ -96,7 +96,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -123,7 +123,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -258,7 +258,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -285,7 +285,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+--- antes/rooms/rm_obra_1/rm_obra_1.yy
++++ depois/rooms/rm_obra_1/rm_obra_1.yy
+@@ -146,7 +146,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -173,7 +173,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -200,7 +200,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -227,7 +227,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -254,7 +254,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+@@ -281,7 +281,7 @@
+           "colour": 4294967295,
+           "frozen": false,
+           "hasCreationCode": false,
+-          "ignore": false,
++          "ignore": true,
+           "imageIndex": 0,
+           "imageSpeed": 1.0,
+           "inheritCode": false,
+--- /dev/null
++++ depois/scripts/qa_cutscene/qa_cutscene.yy
+@@ -0,0 +1,13 @@
++{
++  "$GMScript": "v1",
++  "%Name": "qa_cutscene",
++  "isCompatibility": false,
++  "isDnD": false,
++  "name": "qa_cutscene",
++  "parent": {
++    "name": "game P.I",
++    "path": "game P.I.yyp"
++  },
++  "resourceType": "GMScript",
++  "resourceVersion": "2.0"
++}
+--- /dev/null
++++ depois/scripts/roteiros_cutscene/roteiros_cutscene.yy
+@@ -0,0 +1,13 @@
++{
++  "$GMScript": "v1",
++  "%Name": "roteiros_cutscene",
++  "isCompatibility": false,
++  "isDnD": false,
++  "name": "roteiros_cutscene",
++  "parent": {
++    "name": "game P.I",
++    "path": "game P.I.yyp"
++  },
++  "resourceType": "GMScript",
++  "resourceVersion": "2.0"
++}
+--- /dev/null
++++ depois/scripts/sistema_cutscene/sistema_cutscene.yy
+@@ -0,0 +1,13 @@
++{
++  "$GMScript": "v1",
++  "%Name": "sistema_cutscene",
++  "isCompatibility": false,
++  "isDnD": false,
++  "name": "sistema_cutscene",
++  "parent": {
++    "name": "game P.I",
++    "path": "game P.I.yyp"
++  },
++  "resourceType": "GMScript",
++  "resourceVersion": "2.0"
++}

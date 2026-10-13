@@ -1,8 +1,8 @@
-# Museu — etapa 1: imagem compartilhada
+# Museu — etapa 2: passeio em cutscene por dados
 
 Abra `game P.I.yyp` no GameMaker 2026.0.0.16 e execute com F5.
 
-Esta versão conclui somente a etapa 1 do novo pedido. A etapa 2 aguarda seu teste. As versões de QA anteriores são históricas; consulte agora `qa/ETAPA-1.md`.
+Esta versão conclui a etapa 2. A pasta mantém o nome histórico `Museu Marco Zero - Etapa 1` para preservar o caminho do seu checkout e da automação. Consulte `qa/ETAPA-2.md`; os relatórios anteriores são históricos. A etapa 3 aguarda seu teste.
 
 ## O que mudou
 
@@ -34,3 +34,9 @@ A narrativa fixa e a cutscene atual do portal foram preservadas para as etapas 2
 A raiz do repositório contém `.github/workflows/validar-gamemaker.yml` para validação e tentativa de build Windows a cada push. Veja a página Actions para o resultado e eventuais artifacts; o workflow atual não executa gameplay. A compilação local foi tentada com o CLI oficial, mas o download das ferramentas retornou HTTP 403 antes da análise do projeto.
 
 O carregamento pelo leitor oficial ResourceTool@2026.0.22 foi confirmado no GitHub Actions. A compilação Windows aguarda o secret `GAMEMAKER_PAT`; ainda não há aprovação de gameplay ou FPS desta revisão.
+
+## Passeio e validação da etapa 2
+
+Visitantes estão desativados. No museu há protagonista e guia; na praça há protagonista e historiador. O passeio usa ações por dados e para em três obras, apresenta a tecnologia e volta ao primeiro quadro antes de liberar o controle. Saves da versão anterior permitem ver esse passeio novo uma vez.
+
+O GitHub Actions agora inicia o executável com `--qa-cutscene`, verifica o fluxo, gera JSON e capturas, e encerra o jogo. Esse argumento é reservado à automação. O teste passou em execução real; não é aprovação visual de arte ou medição de FPS. GML completos: `qa/GML-COMPLETOS-ETAPA-2.md`; metadados exatos: `qa/METADADOS-ETAPA-2.diff`.

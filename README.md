@@ -6,7 +6,7 @@ A versão atual está em **Museu Marco Zero - Etapa 1/**. Abra `game P.I.yyp` de
 
 O pacote da mesma versão é **Museu-Marco-Zero-Etapa-1-Audio-v2.zip**. Ele inclui a correção do esquema dos recursos de áudio GMSound v2. Os ZIPs anteriores não fazem parte desta atualização.
 
-A etapa 1 usa a mesma imagem provisória no quadro e no destino, com calçamento explorável obtido da própria imagem e sem faixas laterais. Nenhum PNG foi redesenhado. As próximas etapas aguardam teste desta versão.
+A paisagem usa a mesma imagem provisória no quadro e no destino, com calçamento explorável obtido da própria imagem e sem faixas laterais. Nenhum PNG foi redesenhado. As próximas etapas aguardam teste desta versão.
 
 Documentação: `LEIA-ME.md`, `qa/ETAPA-1.md`, `qa/GML-COMPLETOS-ETAPA-1.md` e `qa/DIAGNOSTICO-AUDIO-V2.md` dentro da pasta do projeto.
 
@@ -23,3 +23,7 @@ O workflow **Validar GameMaker e gerar jogo Windows**, em Actions, verifica os r
 ## Resultado confirmado
 
 A compilação Windows passou com a chave GameMaker configurada. Veja `VALIDACAO-WINDOWS.md` para evidências, link do jogo compilado e limites dos testes. A compilação não substitui teste jogável.
+
+## Etapa 2 — atual
+
+O passeio por dados com três paradas está implementado; visitantes estão desativados e o historiador foi mantido. A pasta original foi mantida para não mudar o caminho do seu projeto local. Consulte `qa/ETAPA-2.md` dentro do projeto. A execução automática do jogo Windows passou: passeio, bloqueio de input, pausa, viagem e retorno. Os artifacts do workflow incluem jogo compilado, relatório e capturas.
