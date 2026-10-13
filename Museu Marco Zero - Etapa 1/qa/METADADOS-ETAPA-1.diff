@@ -1,0 +1,211 @@
+--- antes/game P.I.yyp
++++ depois/game P.I.yyp
+@@ -248,6 +248,12 @@
+         "name": "snd_portal",
+         "path": "sounds/snd_portal/snd_portal.yy"
+       }
++    },
++    {
++      "id": {
++        "name": "configuracao_cenario",
++        "path": "scripts/configuracao_cenario/configuracao_cenario.yy"
++      }
+     }
+   ],
+   "resourceType": "GMProject",
+--- antes/objects/obj_npc_obra/obj_npc_obra.yy
++++ depois/objects/obj_npc_obra/obj_npc_obra.yy
+@@ -54,6 +54,9 @@
+     "name": "spr_player",
+     "path": "sprites/spr_player/spr_player.yy"
+   },
+-  "spriteMaskId": null,
++  "spriteMaskId": {
++    "name": "spr_player_hitbox",
++    "path": "sprites/spr_player_hitbox/spr_player_hitbox.yy"
++  },
+   "visible": true
+ }
+--- antes/objects/obj_obra_1/obj_obra_1.yy
++++ depois/objects/obj_obra_1/obj_obra_1.yy
+@@ -1,36 +1,48 @@
+ {
+-  "$GMObject":"",
+-  "%Name":"obj_obra_1",
+-  "eventList":[],
+-  "managed":true,
+-  "name":"obj_obra_1",
+-  "overriddenProperties":[],
+-  "parent":{
+-    "name":"game P.I",
+-    "path":"game P.I.yyp",
++  "$GMObject": "",
++  "%Name": "obj_obra_1",
++  "eventList": [
++    {
++      "$GMEvent": "v1",
++      "%Name": "",
++      "collisionObjectId": null,
++      "eventNum": 0,
++      "eventType": 8,
++      "isDnD": false,
++      "name": "",
++      "resourceType": "GMEvent",
++      "resourceVersion": "2.0"
++    }
++  ],
++  "managed": true,
++  "name": "obj_obra_1",
++  "overriddenProperties": [],
++  "parent": {
++    "name": "game P.I",
++    "path": "game P.I.yyp"
+   },
+-  "parentObjectId":null,
+-  "persistent":false,
+-  "physicsAngularDamping":0.1,
+-  "physicsDensity":0.5,
+-  "physicsFriction":0.2,
+-  "physicsGroup":1,
+-  "physicsKinematic":false,
+-  "physicsLinearDamping":0.1,
+-  "physicsObject":false,
+-  "physicsRestitution":0.1,
+-  "physicsSensor":false,
+-  "physicsShape":1,
+-  "physicsShapePoints":[],
+-  "physicsStartAwake":true,
+-  "properties":[],
+-  "resourceType":"GMObject",
+-  "resourceVersion":"2.0",
+-  "solid":false,
+-  "spriteId":{
+-    "name":"spr_colisao",
+-    "path":"sprites/spr_colisao/spr_colisao.yy",
++  "parentObjectId": null,
++  "persistent": false,
++  "physicsAngularDamping": 0.1,
++  "physicsDensity": 0.5,
++  "physicsFriction": 0.2,
++  "physicsGroup": 1,
++  "physicsKinematic": false,
++  "physicsLinearDamping": 0.1,
++  "physicsObject": false,
++  "physicsRestitution": 0.1,
++  "physicsSensor": false,
++  "physicsShape": 1,
++  "physicsShapePoints": [],
++  "physicsStartAwake": true,
++  "properties": [],
++  "resourceType": "GMObject",
++  "resourceVersion": "2.0",
++  "solid": false,
++  "spriteId": {
++    "name": "spr_colisao",
++    "path": "sprites/spr_colisao/spr_colisao.yy"
+   },
+-  "spriteMaskId":null,
+-  "visible":false,
+-}+  "spriteMaskId": null,
++  "visible": true
++}
+--- antes/rooms/rm_obra_1/rm_obra_1.yy
++++ depois/rooms/rm_obra_1/rm_obra_1.yy
+@@ -84,7 +84,7 @@
+           "scaleX": 1,
+           "scaleY": 1,
+           "x": 400,
+-          "y": 350
++          "y": 430
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -111,7 +111,7 @@
+           "scaleX": 1,
+           "scaleY": 1,
+           "x": 520,
+-          "y": 310
++          "y": 430
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -164,8 +164,8 @@
+           "rotation": 0.0,
+           "scaleX": 1,
+           "scaleY": 1,
+-          "x": 160,
+-          "y": 275
++          "x": 150,
++          "y": 398
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -191,8 +191,8 @@
+           "rotation": 0.0,
+           "scaleX": 1,
+           "scaleY": 1,
+-          "x": 210,
+-          "y": 280
++          "x": 215,
++          "y": 456
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -219,7 +219,7 @@
+           "scaleX": 1,
+           "scaleY": 1,
+           "x": 645,
+-          "y": 310
++          "y": 398
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -245,8 +245,8 @@
+           "rotation": 0.0,
+           "scaleX": 1,
+           "scaleY": 1,
+-          "x": 680,
+-          "y": 320
++          "x": 690,
++          "y": 456
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -272,8 +272,8 @@
+           "rotation": 0.0,
+           "scaleX": 1,
+           "scaleY": 1,
+-          "x": 95,
+-          "y": 380
++          "x": 90,
++          "y": 470
+         },
+         {
+           "$GMRInstance": "v4",
+@@ -299,8 +299,8 @@
+           "rotation": 0.0,
+           "scaleX": 1,
+           "scaleY": 1,
+-          "x": 715,
+-          "y": 390
++          "x": 725,
++          "y": 470
+         }
+       ],
+       "layers": [],
+--- /dev/null
++++ depois/scripts/configuracao_cenario/configuracao_cenario.yy
+@@ -0,0 +1,13 @@
++{
++  "$GMScript": "v1",
++  "%Name": "configuracao_cenario",
++  "isCompatibility": false,
++  "isDnD": false,
++  "name": "configuracao_cenario",
++  "parent": {
++    "name": "game P.I",
++    "path": "game P.I.yyp"
++  },
++  "resourceType": "GMScript",
++  "resourceVersion": "2.0"
++}

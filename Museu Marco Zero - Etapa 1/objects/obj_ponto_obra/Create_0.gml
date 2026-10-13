@@ -1,0 +1,1 @@
+ocupado_por = noone;

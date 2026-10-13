@@ -1,0 +1,62 @@
+{
+  "$GMObject": "",
+  "%Name": "obj_npc_obra",
+  "eventList": [
+    {
+      "$GMEvent": "v1",
+      "%Name": "",
+      "collisionObjectId": null,
+      "eventNum": 0,
+      "eventType": 8,
+      "isDnD": false,
+      "name": "",
+      "resourceType": "GMEvent",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMEvent": "v1",
+      "%Name": "",
+      "collisionObjectId": null,
+      "eventNum": 0,
+      "eventType": 0,
+      "isDnD": false,
+      "name": "",
+      "resourceType": "GMEvent",
+      "resourceVersion": "2.0"
+    }
+  ],
+  "managed": true,
+  "name": "obj_npc_obra",
+  "overriddenProperties": [],
+  "parent": {
+    "name": "game P.I",
+    "path": "game P.I.yyp"
+  },
+  "parentObjectId": null,
+  "persistent": false,
+  "physicsAngularDamping": 0.1,
+  "physicsDensity": 0.5,
+  "physicsFriction": 0.2,
+  "physicsGroup": 1,
+  "physicsKinematic": false,
+  "physicsLinearDamping": 0.1,
+  "physicsObject": false,
+  "physicsRestitution": 0.1,
+  "physicsSensor": false,
+  "physicsShape": 1,
+  "physicsShapePoints": [],
+  "physicsStartAwake": true,
+  "properties": [],
+  "resourceType": "GMObject",
+  "resourceVersion": "2.0",
+  "solid": false,
+  "spriteId": {
+    "name": "spr_player",
+    "path": "sprites/spr_player/spr_player.yy"
+  },
+  "spriteMaskId": {
+    "name": "spr_player_hitbox",
+    "path": "sprites/spr_player_hitbox/spr_player_hitbox.yy"
+  },
+  "visible": true
+}
