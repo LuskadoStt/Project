@@ -162,3 +162,9 @@ Execução https://github.com/LuskadoStt/Project/actions/runs/38402342380 : estr
 O workflow foi atualizado para executar `resourcetool eval "resource list"` com o leitor oficial antes de tentar o build e para aceitar autenticação pelo secret `GAMEMAKER_PAT`. Sem esse secret, a etapa de build apresenta um erro explícito; não declara compilação aprovada.
 
 Para liberar builds: gerar uma chave em https://gamemaker.io/en/account/access-keys e armazená-la em https://github.com/LuskadoStt/Project/settings/secrets/actions como repository secret chamado `GAMEMAKER_PAT`. Não colocar a chave em arquivos do projeto, commits ou mensagens. Depois executar o workflow em Actions > Run workflow. O login é feito a partir do secret e a ferramenta aplica as permissões/licença da conta. A chave pode ser revogada pela conta quando desejar.
+
+## Resultado do leitor oficial
+
+Na execução https://github.com/LuskadoStt/Project/actions/runs/38402710901 , a estrutura e a geometria passaram novamente. A etapa `Carregar projeto com leitor oficial do GameMaker` passou com ResourceTool@2026.0.22 e registrou `SUCCESSFUL LOAD AND LINK` em 371,1987 ms. O leitor listou os sons, sprites, salas, objetos e scripts do projeto. Este resultado confirma carregamento de recursos; não compila GML nem executa gameplay.
+
+A etapa seguinte detectou a ausência de `GAMEMAKER_PAT` e interrompeu o build com a instrução para configurar a chave. Nenhum executável foi produzido. É necessário cadastrar esse secret na conta/repositório do usuário; não foi solicitada nem exposta nenhuma chave na conversa.

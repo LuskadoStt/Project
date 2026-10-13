@@ -32,3 +32,5 @@ A narrativa fixa e a cutscene atual do portal foram preservadas para as etapas 2
 ## Automação
 
 A raiz do repositório contém `.github/workflows/validar-gamemaker.yml` para validação e tentativa de build Windows a cada push. Veja a página Actions para o resultado e eventuais artifacts; o workflow atual não executa gameplay. A compilação local foi tentada com o CLI oficial, mas o download das ferramentas retornou HTTP 403 antes da análise do projeto.
+
+O carregamento pelo leitor oficial ResourceTool@2026.0.22 foi confirmado no GitHub Actions. A compilação Windows aguarda o secret `GAMEMAKER_PAT`; ainda não há aprovação de gameplay ou FPS desta revisão.
