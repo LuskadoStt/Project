@@ -1,0 +1,17 @@
+1
+00:00:05,400 --> 00:00:11,300
+GUIA DO MUSEU: Nossa nova tecnologia permite entrar nas pinturas
+e visitar esses lugares.
+
+2
+00:00:11,400 --> 00:00:14,700
+GUIA DO MUSEU: Toque no quadro para iniciar a viagem.
+
+3
+00:00:15,400 --> 00:00:17,500
+GUIA DO MUSEU: Não haverá aviso para não tocar.
+
+4
+00:00:32,100 --> 00:00:36,800
+HISTORIADOR LOCAL: Este é o Pico de Brennand, ponto simbólico
+do Recife e da sua história.

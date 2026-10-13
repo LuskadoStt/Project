@@ -1,0 +1,19 @@
+{
+  "arquivo": "Museu-Entre-na-Arte-Trailer.mp4",
+  "aprovado": true,
+  "duracao_segundos": 49.0,
+  "resolucao": [
+    1280,
+    720
+  ],
+  "fps": 60.0,
+  "frames": 2940,
+  "video_codec": "h264",
+  "pixel_format": "yuv420p",
+  "audio_codec": "aac",
+  "audio_canais": 2,
+  "audio_sample_rate": 44100,
+  "bytes": 19701112,
+  "decodificacao_completa_sem_erros": true,
+  "captura_de_gameplay": false
+}

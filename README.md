@@ -19,3 +19,7 @@ Etapa 3 aprovada em duas viagens completas, pausa durante levitação, bloqueio 
 - Relatório e capturas: https://github.com/LuskadoStt/Project/actions/runs/38415101793/artifacts/11823587142
 
 Esses testes são funcionais; não medem FPS nem substituem avaliação visual de ritmo, arte e áudio. A próxima implementação aguarda a conferência desta etapa. `game P.I.rar` foi preservado como arquivo original.
+
+## Trailer independente
+
+O trailer conceitual animado está em [trailer/Museu-Entre-na-Arte-Trailer.mp4](trailer/Museu-Entre-na-Arte-Trailer.mp4): 49 segundos, HD 1280×720, 60 FPS, trilha instrumental original e falas na tela. É um MP4 independente, sem precisar abrir o GameMaker. Código de produção e validação estão em [trailer/README.md](trailer/README.md). As novas animações e os visitantes do vídeo não alteram a versão jogável.
