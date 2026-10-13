@@ -10,9 +10,7 @@ if (!surface_exists(fundo_surface)) {
             draw_sprite_ext(configuracao.imagem_museu, 0, 0, 0,
                 escala_museu, escala_museu, 0, c_white, 1);
         } else {
-            desenhar_imagem_inteira(configuracao.imagem_destino,
-                configuracao.imagem_praca, configuracao.cor_faixas);
-            desenhar_piso_provisorio(configuracao);
+            desenhar_cenario_compartilhado(configuracao, configuracao.imagem_praca);
         }
         surface_reset_target();
     }
@@ -26,9 +24,7 @@ if (surface_exists(fundo_surface)) {
         draw_sprite_ext(configuracao.imagem_museu, 0, 0, 0,
             escala_museu_direta, escala_museu_direta, 0, c_white, 1);
     } else {
-        desenhar_imagem_inteira(configuracao.imagem_destino,
-            configuracao.imagem_praca, configuracao.cor_faixas);
-        desenhar_piso_provisorio(configuracao);
+        desenhar_cenario_compartilhado(configuracao, configuracao.imagem_praca);
     }
 }
 // Efeito atual do portal preservado; será substituído na etapa 3.

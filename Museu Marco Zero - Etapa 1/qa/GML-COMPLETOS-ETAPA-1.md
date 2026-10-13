@@ -102,9 +102,7 @@ if (!surface_exists(fundo_surface)) {
             draw_sprite_ext(configuracao.imagem_museu, 0, 0, 0,
                 escala_museu, escala_museu, 0, c_white, 1);
         } else {
-            desenhar_imagem_inteira(configuracao.imagem_destino,
-                configuracao.imagem_praca, configuracao.cor_faixas);
-            desenhar_piso_provisorio(configuracao);
+            desenhar_cenario_compartilhado(configuracao, configuracao.imagem_praca);
         }
         surface_reset_target();
     }
@@ -118,9 +116,7 @@ if (surface_exists(fundo_surface)) {
         draw_sprite_ext(configuracao.imagem_museu, 0, 0, 0,
             escala_museu_direta, escala_museu_direta, 0, c_white, 1);
     } else {
-        desenhar_imagem_inteira(configuracao.imagem_destino,
-            configuracao.imagem_praca, configuracao.cor_faixas);
-        desenhar_piso_provisorio(configuracao);
+        desenhar_cenario_compartilhado(configuracao, configuracao.imagem_praca);
     }
 }
 // Efeito atual do portal preservado; será substituído na etapa 3.
@@ -354,11 +350,10 @@ draw_sprite_ext(sprite_index, 0, round(x), round(y),
 ## `objects/obj_obra_1/Draw_0.gml`
 
 ```gml
-// A pintura embutida no fundo é coberta somente dentro da moldura.
-// O mesmo recurso é usado como cenário em rm_obra_1.
+// O quadro mostra a mesma composição da praça, com o piso da imagem existente.
+// Apenas o interior configurável da moldura é coberto.
 var configuracao = configuracao_cenario();
-desenhar_imagem_inteira(configuracao.imagem_destino,
-    configuracao.moldura, configuracao.cor_faixas);
+desenhar_cenario_compartilhado(configuracao, configuracao.moldura);
 ```
 
 ## `objects/obj_player/Draw_0.gml`
@@ -518,19 +513,18 @@ if (input_x == 0 && input_y == 0)
 ## `scripts/configuracao_cenario/configuracao_cenario.gml`
 
 ```gml
-/// Configuração da etapa 1. Nenhuma imagem nova é criada ou redesenhada.
+/// Configuração provisória: utiliza somente imagens existentes no projeto.
 function configuracao_cenario() {
     return {
         imagem_destino: spr_cenario_obra_1,
         imagem_museu: spr_cenario,
-        // Área interna da primeira moldura, após o museu ser ajustado à largura da sala.
         moldura: {x: 179, y: 199, largura: 258, altura: 140},
-        // Imagem inteira acima do piso provisório, sem corte ou deformação.
-        imagem_praca: {x: 0, y: 0, largura: 800, altura: 360},
-        cor_faixas: make_color_rgb(35,43,59),
-        cor_piso: make_color_rgb(142,127,116),
-        cor_juntas: make_color_rgb(113,103,99),
-        piso_inicio_y: 360,
+        imagem_praca: {x: 0, y: 0, largura: 800, altura: 500},
+        // A partir de 94% da altura, a imagem provisória contém apenas calçamento.
+        // Altere esta fração quando substituir a arte; nenhum PNG é modificado.
+        inicio_piso_imagem: 0.94,
+        // Reserva 28% da tela para circulação. O piso usa a textura do próprio sprite.
+        inicio_piso_tela: 0.72,
         limites_museu: {esquerda: 32, topo: 470, direita: 2016, base: 670},
         limites_praca: {esquerda: 32, topo: 380, direita: 768, base: 486},
         chegada_praca: {x: 400, y: 430},
@@ -539,40 +533,37 @@ function configuracao_cenario() {
     };
 }
 
-/// Desenha o sprite inteiro com escala proporcional e amostragem sem filtragem.
-/// As faixas completam o retângulo quando as proporções não coincidem.
-function desenhar_imagem_inteira(_sprite, _retangulo, _cor_fundo) {
+/// Quadro e praça utilizam a mesma composição, incluindo o calçamento existente.
+/// Sem faixas laterais: a paisagem preenche a largura disponível.
+/// A faixa de piso é repetida verticalmente sem esticar a textura do calçamento.
+function desenhar_cenario_compartilhado(_configuracao, _retangulo) {
     gpu_set_texfilter(false);
-    draw_set_alpha(1);
-    draw_set_color(_cor_fundo);
-    draw_rectangle(_retangulo.x, _retangulo.y,
-        _retangulo.x + _retangulo.largura - 1,
-        _retangulo.y + _retangulo.altura - 1, false);
-    var escala = min(_retangulo.largura / sprite_get_width(_sprite),
-        _retangulo.altura / sprite_get_height(_sprite));
-    var largura = sprite_get_width(_sprite) * escala;
-    var altura = sprite_get_height(_sprite) * escala;
-    var pos_x = _retangulo.x + (_retangulo.largura - largura) / 2;
-    var pos_y = _retangulo.y + (_retangulo.altura - altura) / 2;
-    // Compensa a origem para o ajuste continuar válido quando a arte for substituída.
-    draw_sprite_ext(_sprite, 0,
-        pos_x + sprite_get_xoffset(_sprite) * escala,
-        pos_y + sprite_get_yoffset(_sprite) * escala,
-        escala, escala, 0, c_white, 1);
-    draw_set_color(c_white);
-}
+    var imagem = _configuracao.imagem_destino;
+    var largura_imagem = sprite_get_width(imagem);
+    var altura_imagem = sprite_get_height(imagem);
+    var origem_piso = clamp(floor(altura_imagem * _configuracao.inicio_piso_imagem), 1, altura_imagem - 1);
+    var altura_piso_imagem = altura_imagem - origem_piso;
+    var altura_paisagem = _retangulo.altura * _configuracao.inicio_piso_tela;
+    var escala_x = _retangulo.largura / largura_imagem;
+    // A paisagem recebe ajuste vertical para caber acima da faixa explorável.
+    // Isso preserva todos os elementos, porém altera levemente suas proporções.
+    draw_sprite_part_ext(imagem, 0, 0, 0, largura_imagem, origem_piso,
+        _retangulo.x, _retangulo.y, escala_x, altura_paisagem / origem_piso, c_white, 1);
 
-/// Piso simples autorizado para tornar o cenário provisório explorável.
-function desenhar_piso_provisorio(_configuracao) {
-    draw_set_color(_configuracao.cor_piso);
-    draw_rectangle(0, _configuracao.piso_inicio_y, 799, 499, false);
-    draw_set_color(_configuracao.cor_juntas);
-    for (var linha = _configuracao.piso_inicio_y; linha < 500; linha += 28) {
-        draw_rectangle(0, linha, 799, linha + 1, false);
+    // Mesma escala da textura nas duas telas, relativa à composição lógica 800x500.
+    var escala_piso_y = (800 / largura_imagem) * (_retangulo.altura / 500);
+    var pos_y = _retangulo.y + altura_paisagem;
+    var fim_y = _retangulo.y + _retangulo.altura;
+    var altura_ladrilho = altura_piso_imagem * escala_piso_y;
+    while (pos_y < fim_y) {
+        // O último pedaço é limitado à área restante, sem pintar fora da moldura.
+        var altura_destino = min(altura_ladrilho, fim_y - pos_y);
+        var altura_origem = altura_destino / escala_piso_y;
+        draw_sprite_part_ext(imagem, 0, 0, origem_piso, largura_imagem, altura_origem,
+            _retangulo.x, pos_y, escala_x, escala_piso_y, c_white, 1);
+        pos_y += altura_destino;
     }
-    for (var coluna = 0; coluna < 800; coluna += 80) {
-        draw_rectangle(coluna, _configuracao.piso_inicio_y, coluna + 1, 499, false);
-    }
+    draw_set_alpha(1);
     draw_set_color(c_white);
 }
 ```

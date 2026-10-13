@@ -46,7 +46,7 @@ config = (ROOT / 'scripts/configuracao_cenario/configuracao_cenario.gml').read_t
 assert 'imagem_destino: spr_cenario_obra_1' in config
 for name in ['objects/obj_narrativa/Draw_0.gml', 'objects/obj_obra_1/Draw_0.gml']:
     code = (ROOT / name).read_text()
-    assert 'desenhar_imagem_inteira(configuracao.imagem_destino' in code
+    assert 'desenhar_cenario_compartilhado(configuracao,' in code
     assert 'marco_zero(' not in code and 'museu_pixel(' not in code
 assert load(ROOT / 'objects/obj_obra_1/obj_obra_1.yy')['visible'] is True
 for name in ['obj_player', 'obj_npc', 'obj_guia', 'obj_npc_obra']:

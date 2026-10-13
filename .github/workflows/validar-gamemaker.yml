@@ -1,0 +1,43 @@
+name: Validar GameMaker e gerar jogo Windows
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Museu Marco Zero - Etapa 1/**'
+      - '.github/workflows/validar-gamemaker.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validar-gamemaker-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  estrutura:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verificar recursos e metadados
+        run: python 'Museu Marco Zero - Etapa 1/qa/verify_project.py'
+      - name: Verificar geometria da paisagem e do piso
+        run: python 'Museu Marco Zero - Etapa 1/qa/testar_composicao.py'
+  compilar-windows:
+    needs: estrutura
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Compilar e empacotar com ferramentas oficiais
+        working-directory: Museu Marco Zero - Etapa 1
+        run: npx --yes @gamemaker/gm-cli@2.4.1 package "game P.I.yyp" --target=windows --runtime=vm --toolchain=GMS2@2026.0.0.23 --output=../Museu-Marco-Zero-Windows.zip
+      - name: Disponibilizar jogo compilado
+        uses: actions/upload-artifact@v4
+        with:
+          name: Museu-Marco-Zero-Windows-${{ github.sha }}
+          path: Museu-Marco-Zero-Windows.zip
+          if-no-files-found: error

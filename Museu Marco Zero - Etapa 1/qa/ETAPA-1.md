@@ -1,5 +1,7 @@
 # Etapa 1 — quadro e destino com a mesma imagem
 
+> Registro da primeira entrega. A revisão atual de tela/piso e seus GML completos estão em `REVISAO-TELA-PISO.md`; a correção dos metadados de áudio está em `DIAGNOSTICO-AUDIO-V2.md`.
+
 ## Resultado e escopo
 
 Foi aplicada sua escolha: imagem inteira, sem recorte, e faixa inferior de piso provisório feita com retângulos. Nenhum sprite foi redesenhado ou gerado. Foram restaurados os bitmaps do museu e dos personagens, substituindo os desenhos procedurais da versão anterior. O sistema narrativo, suas falas e a lógica de oito direções foram preservados, com os ajustes de limites e colisão necessários ao piso.
