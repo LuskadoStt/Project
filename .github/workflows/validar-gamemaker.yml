@@ -27,11 +27,25 @@ jobs:
     needs: estrutura
     runs-on: windows-latest
     timeout-minutes: 25
+    env:
+      GAMEMAKER_PAT: ${{ secrets.GAMEMAKER_PAT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Carregar projeto com leitor oficial do GameMaker
+        working-directory: Museu Marco Zero - Etapa 1
+        run: npx --yes @gamemaker/gm-cli@2.4.1 resourcetool eval "resource list"
+      - name: Autenticar GameMaker quando a chave estiver configurada
+        if: ${{ env.GAMEMAKER_PAT != '' }}
+        working-directory: Museu Marco Zero - Etapa 1
+        run: npx --yes @gamemaker/gm-cli@2.4.1 login $env:GAMEMAKER_PAT
+      - name: Conferir configuração da licença de compilação
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:GAMEMAKER_PAT)) {
+            throw "O leitor oficial foi executado. Para compilar Windows, cadastre o secret GAMEMAKER_PAT com uma chave de acesso da sua conta GameMaker. A licença guest falhou na execução anterior."
+          }
       - name: Compilar e empacotar com ferramentas oficiais
         working-directory: Museu Marco Zero - Etapa 1
         run: npx --yes @gamemaker/gm-cli@2.4.1 package "game P.I.yyp" --target=windows --runtime=vm --toolchain=GMS2@2026.0.0.23 --output=../Museu-Marco-Zero-Windows.zip

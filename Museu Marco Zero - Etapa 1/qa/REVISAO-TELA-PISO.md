@@ -154,3 +154,11 @@ var configuracao = configuracao_cenario();
 desenhar_cenario_compartilhado(configuracao, configuracao.moldura);
 ```
 
+
+## Resultado da primeira execução no GitHub
+
+Execução https://github.com/LuskadoStt/Project/actions/runs/38402342380 : estrutura e geometria passaram. A ferramenta de build foi baixada, mas a obtenção da licença guest falhou em `Igor Runtime FetchLicense`, código 255, antes da compilação. Isso não é um erro GML reportado: o compilador ainda não analisou o projeto.
+
+O workflow foi atualizado para executar `resourcetool eval "resource list"` com o leitor oficial antes de tentar o build e para aceitar autenticação pelo secret `GAMEMAKER_PAT`. Sem esse secret, a etapa de build apresenta um erro explícito; não declara compilação aprovada.
+
+Para liberar builds: gerar uma chave em https://gamemaker.io/en/account/access-keys e armazená-la em https://github.com/LuskadoStt/Project/settings/secrets/actions como repository secret chamado `GAMEMAKER_PAT`. Não colocar a chave em arquivos do projeto, commits ou mensagens. Depois executar o workflow em Actions > Run workflow. O login é feito a partir do secret e a ferramenta aplica as permissões/licença da conta. A chave pode ser revogada pela conta quando desejar.
