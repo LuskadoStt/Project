@@ -8,7 +8,8 @@ function qa_cutscene_criar() {
         pausa_contexto: "passeio", pausa_portal_feita: false,
         escala_salva: 1, fade_salvo: 0, brilho_salvo: 0, tempo_acao_salvo: 0,
         menor_escala: 1, menor_y: 9999, oscilacao_verificada: false,
-        movimento_reduzido_verificado: false, historia_repetida: false,
+        movimento_reduzido_verificado: false, historia_repetida: false, historia_iniciada: false,
+        ultima_sala: "", ultimo_estado: "", ultimo_tipo: "",
         foto_levitacao: false, foto_puxao: false,
         finalizar_frames: -1, concluido: false};
 }
@@ -35,6 +36,8 @@ function qa_cutscene_finalizar() {
         oscilacao_verificada: teste.oscilacao_verificada,
         movimento_reduzido_verificado: teste.movimento_reduzido_verificado,
         historia_repetida: teste.historia_repetida,
+        fase_teste: teste.fase, sala_final: teste.ultima_sala,
+        estado_final: teste.ultimo_estado, tipo_final: teste.ultimo_tipo,
         controle_bloqueado_verificado: teste.bloqueio_feito,
         segundos: teste.tempo_total,
         testes: ["passeio com três obras", "bloqueio de movimento em diálogo",
@@ -53,6 +56,9 @@ function qa_cutscene_finalizar() {
 /// Executado antes do bloqueio de pausa do controlador para poder retomar o teste.
 function qa_cutscene_atualizar(_narrativa) {
     var teste = global.teste;
+    teste.ultima_sala = room_get_name(room);
+    teste.ultimo_estado = _narrativa.estado;
+    teste.ultimo_tipo = _narrativa.tipo_cutscene;
     teste.tempo_total += min(delta_time / 1000000, 0.05);
     if (teste.tempo_total > 100) {
         array_push(teste.falhas, "Timeout do fluxo de teste");
@@ -194,7 +200,11 @@ function qa_cutscene_atualizar(_narrativa) {
             break;
         case "repetindo_historia":
             keyboard_key_release(ord("E"));
-            if (_narrativa.estado == "praca_livre") {
+            // O input simulado pode ser reconhecido no frame seguinte.
+            // Não concluir o teste da conversa antes de confirmar que ela iniciou.
+            if (_narrativa.estado == "cutscene" && _narrativa.tipo_cutscene == "historia")
+                teste.historia_iniciada = true;
+            if (teste.historia_iniciada && _narrativa.estado == "praca_livre") {
                 teste.historia_repetida = true;
                 teste.fase = "iniciar_retorno";
             }
