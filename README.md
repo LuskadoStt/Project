@@ -1,29 +1,21 @@
 # Museu — Marco Zero
 
-Projeto GameMaker 2026.0.0.16 em GML.
+Projeto GameMaker 2026.0.0.16 em GML. Etapa atual: **3**, viagem pela pintura e chegada em cutscene por dados, depois do passeio de três obras.
 
-A versão atual está em **Museu Marco Zero - Etapa 1/**. Abra `game P.I.yyp` dessa pasta no GameMaker.
+A pasta mantém o nome histórico **Museu Marco Zero - Etapa 1/** para preservar caminhos. Abra `game P.I.yyp` nela. Visitantes estão desativados; no museu ficam protagonista e guia, no destino protagonista e historiador. A mesma imagem provisória compõe pintura e paisagem, com calçamento da própria imagem. Nenhum PNG foi redesenhado.
 
-O pacote da mesma versão é **Museu-Marco-Zero-Etapa-1-Audio-v2.zip**. Ele inclui a correção do esquema dos recursos de áudio GMSound v2. Os ZIPs anteriores não fazem parte desta atualização.
-
-A paisagem usa a mesma imagem provisória no quadro e no destino, com calçamento explorável obtido da própria imagem e sem faixas laterais. Nenhum PNG foi redesenhado. As próximas etapas aguardam teste desta versão.
-
-Documentação: `LEIA-ME.md`, `qa/ETAPA-1.md`, `qa/GML-COMPLETOS-ETAPA-1.md` e `qa/DIAGNOSTICO-AUDIO-V2.md` dentro da pasta do projeto.
-
-Verificação estrutural: `python qa/verify_project.py`, executado dentro da pasta do projeto. Compilação e execução no GameMaker ainda precisam ser confirmadas.
-
-`game P.I.rar` é o arquivo original enviado e foi preservado.
+Documentação atual: `LEIA-ME.md`, `qa/ETAPA-3.md` e `qa/GML-COMPLETOS-ETAPA-3.md`. O roteiro solicitado está em `design/ROTEIRO-CINEMATOGRAFICO-PROPOSTA.md`; seus novos efeitos e visitantes são proposta para revisão.
 
 ## Atualização e testes automáticos
 
-Use GitHub Desktop para clonar este repositório uma vez e atualizar com Fetch/Pull. Abra sempre o mesmo `.yyp` da pasta clonada. A documentação está em `qa/REVISAO-TELA-PISO.md` no projeto.
+Clone uma vez pelo GitHub Desktop e use Fetch/Pull para atualizar. Não é necessário copiar recursos individualmente. É possível jogar o executável empacotado sem abrir o GameMaker.
 
-O workflow **Validar GameMaker e gerar jogo Windows**, em Actions, verifica os recursos e a composição e tenta produzir o jogo compilado. Se tiver sucesso, o executável empacotado é disponibilizado como artifact. A automação não executa gameplay.
+O workflow **Validar GameMaker e gerar jogo Windows** verifica recursos, composição, leitura oficial, compilação e execução real com o argumento reservado `--qa-cutscene`. Publica executável, JSON e capturas. A chave GameMaker já configurada é usada pela automação.
 
-## Resultado confirmado
+Etapa 3 aprovada em duas viagens completas, pausa durante levitação, bloqueio de input, modo reduzido, conversa repetida e retorno: `aprovado: true`, `falhas: []`.
 
-A compilação Windows passou com a chave GameMaker configurada. Veja `VALIDACAO-WINDOWS.md` para evidências, link do jogo compilado e limites dos testes. A compilação não substitui teste jogável.
+- Execução: https://github.com/LuskadoStt/Project/actions/runs/38415101793
+- Jogo Windows: https://github.com/LuskadoStt/Project/actions/runs/38415101793/artifacts/11823412302
+- Relatório e capturas: https://github.com/LuskadoStt/Project/actions/runs/38415101793/artifacts/11823587142
 
-## Etapa 2 — atual
-
-O passeio por dados com três paradas está implementado; visitantes estão desativados e o historiador foi mantido. A pasta original foi mantida para não mudar o caminho do seu projeto local. Consulte `qa/ETAPA-2.md` dentro do projeto. A execução automática do jogo Windows passou: passeio, bloqueio de input, pausa, viagem e retorno. Os artifacts do workflow incluem jogo compilado, relatório e capturas.
+Esses testes são funcionais; não medem FPS nem substituem avaliação visual de ritmo, arte e áudio. A próxima implementação aguarda a conferência desta etapa. `game P.I.rar` foi preservado como arquivo original.

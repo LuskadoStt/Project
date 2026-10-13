@@ -1,16 +1,16 @@
-# Museu — etapa 2: passeio em cutscene por dados
+# Museu — etapa 3: viagem e chegada em cutscene por dados
 
-Abra `game P.I.yyp` no GameMaker 2026.0.0.16 e execute com F5.
-
-Esta versão conclui a etapa 2. A pasta mantém o nome histórico `Museu Marco Zero - Etapa 1` para preservar o caminho do seu checkout e da automação. Consulte `qa/ETAPA-2.md`; os relatórios anteriores são históricos. A etapa 3 aguarda seu teste.
+Abra `game P.I.yyp` no GameMaker 2026.0.0.16 e execute com F5. O nome de pasta histórico mantém os caminhos da automação. Consulte `qa/ETAPA-3.md`; relatórios das etapas 1 e 2 são históricos.
 
 ## O que mudou
 
-O museu usa `spr_cenario` e os personagens usam os sprites existentes. Nenhum PNG foi alterado, gerado ou redesenhado. `obj_obra_1` cobre apenas a área interna da primeira moldura com `spr_cenario_obra_1`. O destino preenche a tela com a paisagem e o calçamento da própria imagem; o piso é repetido abaixo para circulação. O desenho procedural da praça e a legenda deixaram de ser chamados pelo Draw da narrativa.
+O passeio de três obras continua. A viagem usa ações por dados: aproximação, pose de toque, brilho, levitação, puxão com escala em degraus, fade, chegada e história. Visitantes estão desativados; guia e historiador permanecem. Nenhum PNG ou metadado foi alterado nesta etapa.
 
-A imagem atual é provisória: mostra o rio e o parapeito, não uma praça completa. Ela será substituída pela arte que você fornecer. Configurações da etapa estão em `scripts/configuracao_cenario/configuracao_cenario.gml`.
+Quadro e destino compartilham `spr_cenario_obra_1`, inclusive o calçamento. A paisagem preenche a tela e o piso é repetido para circulação. A imagem mostra rio e parapeito; ainda não é arte final de uma praça completa. O gesto da mão usa uma pose existente até recebermos os sprites finais.
 
-## Controles preservados
+GML completos: `qa/GML-COMPLETOS-ETAPA-3.md`. Configurações: `scripts/configuracao_cenario/configuracao_cenario.gml`. Sequências: `scripts/roteiros_cutscene/roteiros_cutscene.gml`.
+
+## Controles
 
 - Espaço/Enter: completar a fala, depois avançar.
 - Setas/WASD: caminhar quando o controle estiver liberado.
@@ -19,24 +19,14 @@ A imagem atual é provisória: mostra o rio e o parapeito, não uma praça compl
 - Esc: pausa. F11: tela cheia.
 - Na pausa, M silencia; esquerda/direita ajustam volume; T muda leitura imediata; F reduz efeitos.
 
-O salvamento existente foi mantido. Saves antigos da praça têm a posição limitada à nova faixa caminhável. Para testar o passeio desde o início, feche o jogo e remova `museu_marco_zero.ini` da área de dados do GameMaker, se esse arquivo existir.
+Saves existentes são preservados. Retornar não reinicia o passeio. Para rever tudo desde o início, feche o jogo e remova `museu_marco_zero.ini` da área de dados do GameMaker, se desejar.
 
-## Conferência
+## Validação e atualização
 
-`python qa/verify_project.py` verifica a estrutura. Não compila GML, shaders nem executa o jogo. O ambiente usado não contém runtime GameMaker.
+GitHub Actions passou na estrutura, composição, leitor oficial, compilação e execução real Windows. Duas viagens, pausa na levitação, bloqueio de input, efeitos reduzidos e retorno foram verificados sem falhas. `qa/ETAPA-3.md` contém links, código testado e limitações. `--qa-cutscene` é exclusivo da automação; não afeta execução normal.
 
-`qa/REVISAO-TELA-PISO.md` descreve a revisão mais recente, testes e atualização pelo GitHub Desktop. `qa/ETAPA-1.md` lista arquivos, alterações exatas nos metadados, escala escolhida, roteiro de teste e limitações. `qa/GML-COMPLETOS-ETAPA-1.md` contém o conteúdo completo de cada GML novo ou alterado, por caminho. O ZIP contém também todos os arquivos efetivos do projeto.
+Use Fetch/Pull no GitHub Desktop para atualizar a pasta clonada. O executável permite testar sem abrir o editor ou substituir recursos individualmente. Não houve medição de FPS nem aprovação visual humana das capturas.
 
-A narrativa fixa e a cutscene atual do portal foram preservadas para as etapas 2 e 3. A limpeza dos scripts procedurais legados e dos placeholders será feita na etapa 4; os slots finais de arte e a lista de entregas ficam para a etapa 5.
+## Proposta cinematográfica
 
-## Automação
-
-A raiz do repositório contém `.github/workflows/validar-gamemaker.yml` para validação e tentativa de build Windows a cada push. Veja a página Actions para o resultado e eventuais artifacts; o workflow atual não executa gameplay. A compilação local foi tentada com o CLI oficial, mas o download das ferramentas retornou HTTP 403 antes da análise do projeto.
-
-O carregamento pelo leitor oficial ResourceTool@2026.0.22 foi confirmado no GitHub Actions. A compilação Windows aguarda o secret `GAMEMAKER_PAT`; ainda não há aprovação de gameplay ou FPS desta revisão.
-
-## Passeio e validação da etapa 2
-
-Visitantes estão desativados. No museu há protagonista e guia; na praça há protagonista e historiador. O passeio usa ações por dados e para em três obras, apresenta a tecnologia e volta ao primeiro quadro antes de liberar o controle. Saves da versão anterior permitem ver esse passeio novo uma vez.
-
-O GitHub Actions agora inicia o executável com `--qa-cutscene`, verifica o fluxo, gera JSON e capturas, e encerra o jogo. Esse argumento é reservado à automação. O teste passou em execução real; não é aprovação visual de arte ou medição de FPS. GML completos: `qa/GML-COMPLETOS-ETAPA-2.md`; metadados exatos: `qa/METADADOS-ETAPA-2.diff`.
+`design/ROTEIRO-CINEMATOGRAFICO-PROPOSTA.md` descreve câmera, sprites, levitação, dissolução e chegada do novo pedido. Visitantes e “Pico de Brennand” pertencem à proposta; não foram adicionados nesta etapa. A arte final continua reservada à etapa correspondente. A implementação seguinte aguarda a conferência da etapa 3.
