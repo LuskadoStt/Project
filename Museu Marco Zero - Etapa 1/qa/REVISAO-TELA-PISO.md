@@ -168,3 +168,7 @@ Para liberar builds: gerar uma chave em https://gamemaker.io/en/account/access-k
 Na execução https://github.com/LuskadoStt/Project/actions/runs/38402710901 , a estrutura e a geometria passaram novamente. A etapa `Carregar projeto com leitor oficial do GameMaker` passou com ResourceTool@2026.0.22 e registrou `SUCCESSFUL LOAD AND LINK` em 371,1987 ms. O leitor listou os sons, sprites, salas, objetos e scripts do projeto. Este resultado confirma carregamento de recursos; não compila GML nem executa gameplay.
 
 A etapa seguinte detectou a ausência de `GAMEMAKER_PAT` e interrompeu o build com a instrução para configurar a chave. Nenhum executável foi produzido. É necessário cadastrar esse secret na conta/repositório do usuário; não foi solicitada nem exposta nenhuma chave na conversa.
+
+## Atualização: compilação Windows aprovada
+
+Após cadastrar o secret, a segunda tentativa da execução https://github.com/LuskadoStt/Project/actions/runs/38402984478 passou no carregamento, autenticação, compilação e empacotamento Windows. O artifact está em https://github.com/LuskadoStt/Project/actions/runs/38402984478/artifacts/11818736456 . O relatório na raiz `VALIDACAO-WINDOWS.md` registra o aviso de redução da textura do museu e as limitações: não houve execução de gameplay nem screenshot desta revisão. Esta atualização muda apenas documentação; o código validado é o do commit 335f9b3.

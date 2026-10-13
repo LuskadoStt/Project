@@ -19,3 +19,7 @@ Verificação estrutural: `python qa/verify_project.py`, executado dentro da pas
 Use GitHub Desktop para clonar este repositório uma vez e atualizar com Fetch/Pull. Abra sempre o mesmo `.yyp` da pasta clonada. A documentação está em `qa/REVISAO-TELA-PISO.md` no projeto.
 
 O workflow **Validar GameMaker e gerar jogo Windows**, em Actions, verifica os recursos e a composição e tenta produzir o jogo compilado. Se tiver sucesso, o executável empacotado é disponibilizado como artifact. A automação não executa gameplay.
+
+## Resultado confirmado
+
+A compilação Windows passou com a chave GameMaker configurada. Veja `VALIDACAO-WINDOWS.md` para evidências, link do jogo compilado e limites dos testes. A compilação não substitui teste jogável.
