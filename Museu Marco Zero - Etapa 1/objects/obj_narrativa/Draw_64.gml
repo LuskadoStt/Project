@@ -12,7 +12,7 @@ if(fala!="") {
     draw_set_color(make_color_rgb(171,202,199));draw_text(585,450,"ESPAÇO / ENTER  ›");
 } else if(estado=="livre") {
     draw_set_color(c_black);draw_rectangle(16,24,700,54,false);draw_set_color(c_white);draw_text(24,30,"MUSEU • Setas / WASD: mover");
-    if(point_distance(jogador.x,jogador.y,307,480)<110) draw_text(24,450,"E • Tocar o quadro e iniciar a viagem");
+    if(point_distance(jogador.x,jogador.y,dados_portal.interacao_x,dados_portal.interacao_y)<configuracao.portal.raio_interacao) draw_text(24,450,"E • Tocar o quadro e iniciar a viagem");
 } else if(estado=="praca_livre") {
     draw_set_color(c_black);draw_rectangle(16,24,700,54,false);draw_set_color(c_white);draw_text(24,30,"MARCO ZERO • Recife, Pernambuco");
     draw_text(24,450,"E perto do historiador: conversar    R: voltar ao museu");

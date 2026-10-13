@@ -27,17 +27,4 @@ if (surface_exists(fundo_surface)) {
         desenhar_cenario_compartilhado(configuracao, configuracao.imagem_praca);
     }
 }
-// Efeito atual do portal preservado; será substituído na etapa 3.
-if (room == rm_galeria && estado == "portal" && !global.movimento_reduzido) {
-    draw_set_alpha(0.5);
-    draw_set_color(make_color_rgb(128,228,223));
-    for (var indice = 0; indice < 18; indice++) {
-        var angulo = indice * 20 + tempo * 100;
-        var raio = 65 * (1 - clamp(tempo / 2.4, 0, 1));
-        var pos_x = 307 + lengthdir_x(raio, angulo);
-        var pos_y = 290 + lengthdir_y(raio, angulo);
-        draw_rectangle(pos_x, pos_y, pos_x + 3, pos_y + 3, false);
-    }
-    draw_set_alpha(1);
-}
 draw_set_color(c_white);

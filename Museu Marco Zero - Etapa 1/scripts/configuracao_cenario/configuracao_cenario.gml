@@ -15,6 +15,12 @@ function configuracao_cenario() {
         chegada_praca: {x: 400, y: 430},
         historiador_praca: {x: 520, y: 430},
         raio_historiador: 100,
+        // Parâmetros da viagem. Todos os pontos são derivados da moldura abaixo.
+        portal: {raio_interacao: 110, offset_interacao_y: 141, offset_toque_y: 55,
+            altura_levitacao: 20, amplitude_oscilacao: 2, alvo_vertical: 0.68,
+            velocidade_aproximacao: 140, tempo_toque: 0.45,
+            tempo_levitacao: 1.2, tempo_puxao: 1.3, tempo_transicao: 0.4,
+            tempo_chegada: 1.2, pausa_chegada: 0.3},
         versao_passeio: 2,
         velocidade_passeio: 140,
         distancia_guia: 70,
@@ -58,4 +64,16 @@ function desenhar_cenario_compartilhado(_configuracao, _retangulo) {
     }
     draw_set_alpha(1);
     draw_set_color(c_white);
+}
+
+/// Coordenadas comuns à interação, à animação e ao brilho do quadro.
+function pontos_portal(_configuracao) {
+    var moldura = _configuracao.moldura;
+    var centro_x = moldura.x + moldura.largura / 2;
+    var base = moldura.y + moldura.altura;
+    return {
+        interacao_x: centro_x, interacao_y: base + _configuracao.portal.offset_interacao_y,
+        toque_x: centro_x, toque_y: base + _configuracao.portal.offset_toque_y,
+        alvo_x: centro_x, alvo_y: moldura.y + moldura.altura * _configuracao.portal.alvo_vertical
+    };
 }

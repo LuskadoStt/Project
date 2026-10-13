@@ -34,56 +34,43 @@ if(avancar && fala!="" && letras<string_length(fala)) {
 if (global.modo_teste) avancar = global.teste.permitir_avanco;
 if (!instance_exists(jogador)) exit;
 var estado_anterior=estado;
-switch(estado) {
-case "cutscene":
-    cutscene_atualizar(executor_cutscene, id, dt, avancar);
-    if (!executor_cutscene.ativo) {
-        estado = executor_cutscene.estado_final;
-        fala = "";
-        if (erro_cutscene == "") global.visita_concluida = true;
-        cutscene_pose(jogador, 4, false);
-    }
-    break;
-case "livre":
-    if(keyboard_check_pressed(ord("E")) && point_distance(jogador.x,jogador.y,307,480)<110) {
-        estado="toque";tempo=0;inicio_x=jogador.x;inicio_y=jogador.y;
-        jogador.sprite_index=spr_player_n;jogador.image_speed=0;
-    }
-    break;
-case "toque":
-    jogador.x=lerp(inicio_x,307,min(1,tempo/0.6));
-    jogador.y=lerp(inicio_y,405,min(1,tempo/0.8));
-    if(tempo>=1.15) {estado="portal";tempo=0;global.portal_som=audio_play_sound(snd_portal,1,false);}
-    break;
-case "portal":
-    var t=clamp(tempo/2.4,0,1);var suav=t*t*(3-2*t);
-    jogador.x=307;jogador.y=lerp(405,295,global.movimento_reduzido ? t : suav);
-    jogador.escala_portal=lerp(1,0.08,suav);
-    fade=clamp((t-0.75)*4,0,1);
-    if(t>=1) room_goto(rm_obra_1);
-    break;
-case "chegada":
-    fade=max(0,fade-dt/1.2);
-    if(tempo>=1.4) {estado="historia";pagina=0;fala="Este é o Marco Zero, ponto simbólico do Recife e da sua história.";}
-    break;
-case "historia":
-    if(avancar) {
-        pagina++;
-        if(pagina==1) fala="A Praça Rio Branco fica no Recife Antigo, junto ao porto que ajudou a formar a cidade. O marco é referência para medir as distâncias rodoviárias de Pernambuco.";
-        else if(pagina==2) fala="O piso colorido traz a Rosa dos Ventos, de Cícero Dias, inaugurada em 2000. Ao redor, o casario guarda memórias da vida comercial e cultural do Recife.";
-        else {estado="praca_livre";fala="";}
-    }
-    break;
-case "praca_livre":
-    if(keyboard_check_pressed(ord("E")) && point_distance(jogador.x,jogador.y,configuracao.historiador_praca.x,configuracao.historiador_praca.y)<configuracao.raio_historiador) {
-        estado="historia";pagina=0;fala="Este é o Marco Zero, ponto simbólico do Recife e da sua história.";
-    }
-    if(keyboard_check_pressed(ord("R"))) {salvar_visita(id);room_goto(rm_galeria);}
-    break;
-}
-if(estado!="livre" && estado!="praca_livre" && estado!="cutscene") {
-    jogador.image_speed=0;jogador.image_index=0;
-    if(estado!="portal" && estado!="toque") jogador.sprite_index=spr_player_n;
+switch (estado) {
+    case "cutscene":
+        cutscene_atualizar(executor_cutscene, id, dt, avancar);
+        // A troca de sala já foi solicitada: não liberar controle no ambiente antigo.
+        if (trocando_sala) exit;
+        if (!executor_cutscene.ativo) {
+            estado = executor_cutscene.estado_final;
+            fala = "";
+            if (erro_cutscene == "" && tipo_cutscene == "passeio") global.visita_concluida = true;
+            tipo_cutscene = "";
+            fase_portal = "";
+            brilho_quadro = 0;
+        }
+        break;
+    case "livre":
+        if (keyboard_check_pressed(ord("E")) && !executor_cutscene.ativo
+            && point_distance(jogador.x,jogador.y,dados_portal.interacao_x,dados_portal.interacao_y) < configuracao.portal.raio_interacao) {
+            // E só é aceito aqui: outras pressões durante a viagem são ignoradas.
+            global.viagens_iniciadas++;
+            estado = "cutscene";
+            tipo_cutscene = "viagem";
+            erro_cutscene = "";
+            executor_cutscene = cutscene_criar(roteiro_viagem(configuracao), "livre");
+        }
+        break;
+    case "praca_livre":
+        if (keyboard_check_pressed(ord("E"))
+            && point_distance(jogador.x,jogador.y,configuracao.historiador_praca.x,configuracao.historiador_praca.y) < configuracao.raio_historiador) {
+            estado = "cutscene";
+            tipo_cutscene = "historia";
+            executor_cutscene = cutscene_criar(roteiro_historia(), "praca_livre");
+        } else if (keyboard_check_pressed(ord("R"))) {
+            salvar_visita(id);
+            room_goto(rm_galeria);
+            exit;
+        }
+        break;
 }
 
 if(fala!=ultima_fala) {letras=0;ultima_fala=fala;}

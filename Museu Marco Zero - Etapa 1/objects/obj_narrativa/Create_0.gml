@@ -7,6 +7,12 @@ guia = noone;
 tempo = 0; pagina = 0; fala = ""; nome = "Guia do museu";
 letras = 0; ultima_fala = ""; fade = 0;
 erro_cutscene = "";
+tipo_cutscene = "";
+fase_portal = "";
+brilho_quadro = 0; oscilacao_atual = 0;
+trocando_sala = false;
+dados_portal = pontos_portal(configuracao);
+carregou_posicao = false;
 fundo_surface = -1; autosave_tempo = 0; retomar_praca = false;
 cam_x = 0; cam_y = 0;
 executor_cutscene = cutscene_criar([], "livre");
@@ -25,6 +31,7 @@ if (!variable_global_exists("sessao_iniciada")) {
     global.texto_rapido = global.modo_teste;
     global.movimento_reduzido = false;
     global.visita_concluida = false;
+    global.viagens_iniciadas = 0;
     global.local_salvo = "";
     global.salvo_x = 320; global.salvo_y = 540;
     global.carregar_posicao = false;
@@ -48,7 +55,7 @@ if (!variable_global_exists("sessao_iniciada")) {
     if (global.modo_teste) global.teste = qa_cutscene_criar();
 }
 
-estado = room == rm_galeria ? "livre" : "chegada";
+estado = room == rm_galeria ? "livre" : "praca_livre";
 if (room == rm_obra_1) {nome = "Historiador local"; fade = 1;}
 retomar_praca = global.carregar_posicao && global.local_salvo == "praca" && room == rm_galeria;
 if (global.carregar_posicao && ((room == rm_obra_1 && global.local_salvo == "praca")
@@ -58,6 +65,7 @@ if (global.carregar_posicao && ((room == rm_obra_1 && global.local_salvo == "pra
     jogador.y = clamp(global.salvo_y,limites.topo,limites.base);
     if (room == rm_obra_1) {estado = "praca_livre"; fade = 0;}
     global.carregar_posicao = false;
+    carregou_posicao = true;
 } else if (room == rm_obra_1) {
     jogador.x = configuracao.chegada_praca.x;
     jogador.y = configuracao.chegada_praca.y;
@@ -67,6 +75,7 @@ if (room == rm_galeria) {
     else guia = instance_find(obj_guia,0);
     if (!global.visita_concluida && !retomar_praca) {
         estado = "cutscene";
+        tipo_cutscene = "passeio";
         executor_cutscene = cutscene_criar(roteiro_passeio(configuracao), "livre");
     }
 }
@@ -76,4 +85,11 @@ if (camera_inicial != -1) {
     cam_x = clamp(jogador.x-camera_get_view_width(camera_inicial)/2,0,max(0,room_width-camera_get_view_width(camera_inicial)));
     cam_y = clamp(jogador.y-camera_get_view_height(camera_inicial)/2,0,max(0,room_height-camera_get_view_height(camera_inicial)));
     camera_set_view_pos(camera_inicial,round(cam_x),round(cam_y));
+}
+
+// Chegada por dados: fade-in, pausa de leitura do cenário e história local.
+if (room == rm_obra_1 && !carregou_posicao) {
+    estado = "cutscene";
+    tipo_cutscene = "chegada";
+    executor_cutscene = cutscene_criar(roteiro_chegada(configuracao), "praca_livre");
 }
